@@ -73,6 +73,14 @@ module.exports = {
 };
 ```
 
+5. To enable overlays, in your layout pugjs file, place this
+```
+head
+  ....
+
+body
+  div !{testfliteSwitchs}
+
 Thats it, you are good to go!
 
 ## Introduction to AB Testing
