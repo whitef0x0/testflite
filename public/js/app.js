@@ -1,4 +1,4 @@
-angular.module('abadmin', ['ngRoute'])
+angular.module('testflite', ['ngRoute'])
     .controller('TestCtrl', ['$scope', '$http', function($scope, $http) {
         var resourceUrl = './test';
         $scope.tests = [];

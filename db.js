@@ -2,12 +2,12 @@ var util = require('./util');
 var _ = require('underscore');
 var _db = require('underscore-db');
 _.mixin(_db);
-var dbfile = 'abadmin.tests.json';
+var dbfile = 'testflite.tests.json';
 var database = null;
 
 /**
  * In-memory database with file persistance
- * Specialized for AbAdmin needs
+ * Specialized for testflite needs
  */
 module.exports = () => {
     if(database){
@@ -60,9 +60,9 @@ module.exports = () => {
             });
         },
         /**
-         * Returns
+         * Returns item by given destination template name
          */
-        getByVisitingTemplate: (template) => {
+        getByTestDestination: (template) => {
             var item = _.detect(db, {
                 destination: template
             });

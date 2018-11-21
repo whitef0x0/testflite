@@ -6,19 +6,30 @@ module.exports = (req, res, next) => {
     if (res.render) {
         var render = res.render;
         res.render = function(template, data, callback) {
-            var changed = updateVisitedPage(req, res, template);
+            var isVariant = updateVisitedPage(req, res, template);
             var tmp = getNextTemplate(req, res, template);
-            changed = changed || tmp.changed;
-            if(tmp.changed){
+            isVariant = isVariant || tmp.isVariant;
+
+            if(tmp.isVariant){
                 template = tmp.template;
             }
-            if (changed) {
+            if (isVariant) {
                 db.flush();
             }
 
+
+            data.testfliteSwitch += `
+            <script src='/testflite/js/vendors/riot.min.js'> 
+            </script>
+            <script src='/testflite/js/riot-tags/toggle-preview.tag.js'> 
+            </script>
+
+            <toggle-preview>
+            </toggle-preview>
+            `;
+
             res.render = render;
             res.render(template, data, callback);
-
         }
     }
     next();
@@ -28,11 +39,11 @@ module.exports = (req, res, next) => {
  * Update variation based on the visiting page and cookies
  */
 var updateVisitedPage = (req, res, template) => {
-    var test = db.getByVisitingTemplate(template);
-    var changed = false;
+    var test = db.getByTestDestination(template);
+    var isVariant = false;
     if (test) {
         var cookies = req.cookies;
-        var cookieKey = `abadmin.${test.page.template}`;
+        var cookieKey = `testflite.${test.page.template}`;
         if (cookies && cookies[cookieKey]) {
             var cookie = cookies[cookieKey];
             var allVariations = _.union([test.page], test.variations);
@@ -41,11 +52,11 @@ var updateVisitedPage = (req, res, template) => {
             });
             if (pageRef) {
                 pageRef.returns++;
-                changed = true;
+                isVariant = true;
             }
         }
     }
-    return changed;
+    return isVariant;
 }
 
 
@@ -53,17 +64,17 @@ var getNextTemplate = (req, res, template) => {
     var test = db.getByTemplate(template);
     var newTemplate = template;
     var ret = {
-        changed: false,
+        isVariant: false,
         template: ''
     };
     if (test) {
         //check if user has already visited this page
         //and display the same template
         var cookies = req.cookies;
-        var cookieKey = `abadmin.${test.page.template}`;
+        var cookieKey = `testflite.${test.page.template}`;
         if (cookies && cookies[cookieKey]) {
             ret.template = cookies[cookieKey];
-            ret.changed = true;
+            ret.isVariant = true;
             return ret;
         }
 
@@ -78,7 +89,7 @@ var getNextTemplate = (req, res, template) => {
         }
         //db holds references and should auto update
         pageRef.hits++;
-        ret.changed = true;
+        ret.isVariant = true;
         ret.template = pageRef.template;
 
         res.cookie(cookieKey, pageRef.template, {

@@ -1,29 +1,27 @@
-# AbAdmin
+# TestFlite
 
-AbAdmin is a simple plugin which enables backend-based AB split testing for NodeJS apps. 
+A simple module for AB split testing with NodeJS. 
 
-This package is developed because I couldn't find a nice one to include in my app without changing too much code. For this to work, only two lines of code are needed, and I've also created a simple interface to add/view/delete tests.
-
-The requirements are: 
+## Requirements
  * [Express](expressjs.com)
  * [CookieParser](https://github.com/expressjs/cookie-parser)
  * [BodyParser](https://github.com/expressjs/body-parser)
  * Any templating engine (such as [Jade](jade-lang.com)) which follows the Express convention (render html with ```res.render(template, data[,callback])```)
 
-### Setting up
-To get started with AbAdmin, you only need to include it in your main JS file, after including CookieParser and BodyParser. 
+## Quickstart
+To get started with TestFlite, you only need to include it in your main JS file, after including CookieParser and BodyParser. 
 
 First, navigate to your folder and create an express app using
 
 ```express [name of the project]```
 
-Then install AbAdmin
+Then install TestFlite
 
-```npm install abadmin```
+```npm install testflite```
 
-Require AbAdmin using 
+Require testflite using 
 
-```var abadmin = require('abadmin');```
+```var testflite = require('testflite');```
 
 and initiate it with ```app``` parameter, after those ```app.use(/**/)``` statements
 
@@ -36,14 +34,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//initiate ab admin
-abadmin(app);
+//initiate TestFlite
+testflite(app);
 
 ```
 
 Thats it, you are good to go!
 
-### Ab test introduction
+## Introduction to AB Testing
 
 Take a following example: you own a web shop, and you are thinking about changing the design. Now, instead of changing it, you are smart, and want to test multiple designs for the products page first. 
 
@@ -62,13 +60,13 @@ Terminology:
 * Returns is the number of users that have visited the destination page through that page
 
 ### Usage
-To use the package, go to ```/abadmin```, which will open a nice interface to allow you to add, view stats and remove tests. With the given explanation, there should be no problem on usage.
+To use the package, go to ```/testflite```, which will open a nice interface to allow you to add, view stats and remove tests. With the given explanation, there should be no problem on usage.
 
 Before creating the tests, create the templates and put them in the ```views``` folder.
 Then create the test and save it. Changes will take place immidiately. To test it, open the page you are testing with one browser, and then with some other, and you will see the changes.
 
 ### Persistence
-The tests are saved in a file named ```abadmin.tests.json``` and have the following format:
+The tests are saved in a file named ```testflite.tests.json``` and have the following format:
 
 ```javascript
 [
@@ -96,10 +94,9 @@ The tests are saved in a file named ```abadmin.tests.json``` and have the follow
 ]
 ```
 
-This file can be edited manually and then server should be restarted, or visit the page ```/abadmin/reloaddb``` which will read from the file. 
+This file can be edited manually and then server should be restarted, or visit the page ```/testflite/reloaddb``` which will read from the file. 
 
 Notice: this file is overwritten each time someone visits any page that can trigger tests, so it can have different content then what you've written when you reload the database. Using the web interface is recommended.
 
-MIT License, 
-
-Pavlović Dž Filip
+## Insipration
+TestFlite is based off Pavlović Dž Filip's preliminary work on (testflite)[https://github.com/PavlovicDzFilip/testflite]

@@ -1,14 +1,14 @@
 {
-  "name": "abadmin",
-  "version": "1.1.0",
-  "description": "Easy AB testing with NodeJS Express",
+  "name": "testflite",
+  "version": "1.0.1",
+  "description": "Easy AB testing with NodeJS",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PavlovicDzFilip/AbAdmin.git"
+    "url": "git+https://github.com/whitef0x0/testflite.git"
   },
   "keywords": [
     "node",
@@ -18,12 +18,12 @@
     "split",
     "testing"
   ],
-  "author": "Pavlovic Dz Filip",
+  "author": "Arielle Baldwynn",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/PavlovicDzFilip/AbAdmin/issues"
+    "url": "https://github.com/whitef0x0/testflite/issues"
   },
-  "homepage": "https://github.com/PavlovicDzFilip/AbAdmin#readme",
+  "homepage": "https://github.com/whitef0x0/testflite#readme",
   "dependencies": {
     "underscore": "^1.8.3",
     "underscore-db": "^0.10.0"
