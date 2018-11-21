@@ -11,32 +11,66 @@ A simple module for AB split testing with NodeJS.
 ## Quickstart
 To get started with TestFlite, you only need to include it in your main JS file, after including CookieParser and BodyParser. 
 
-First, navigate to your folder and create an express app using
+1. avigate to your folder and create an express app using
 
 ```express [name of the project]```
 
-Then install TestFlite
+2. Then install TestFlite
 
 ```npm install testflite```
 
-Require testflite using 
-
+3. Add testflite to youp app.js file 
+First import it
 ```var testflite = require('testflite');```
 
 and initiate it with ```app``` parameter, after those ```app.use(/**/)``` statements
-
 ```javascript
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+// Middleware for ABTesting
+app.use(testflite.stats);
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//initiate TestFlite
-testflite(app);
+//Initate TestFlite Admin UI
+testflite.setupAdmin(app, your_custom_auth_middleware);
+```
 
+4. Create your config file in your app directory
+```
+// In this file you can configure migrate-mongo
+
+module.exports = {
+  //Set this to true to use MongoDB. If it is set to false all config settings in 'config.mongodb will be ignore'
+  useMongoDB: true,
+
+  mongodb: {
+    // TODO Change (or review) the url to your MongoDB:
+    url: "your_db",
+
+    // TODO Change this to your database name:
+    databaseName: "your_dbname",
+
+    abCollection: "testflite",
+  },
+
+  overlay: {
+    //Set this to true overlay when process.env.NODE_ENV is 'development'
+    showInDevelopment: true,
+
+    admin: {
+      //Set this to true to show overlay when admin user is logged in
+      show: true,
+
+      //Set this to the admin flag in the user object (i.e. req.session.user.admin)
+      userFlag: 'admin'
+    }
+  }
+};
 ```
 
 Thats it, you are good to go!
@@ -82,8 +116,8 @@ The tests are saved in a file named ```testflite.tests.json``` and have the foll
     "returns": 0
   },
   "variations": [
-  	{
-    	"template": "[Variation B template]",
+      {
+        "template": "[Variation B template]",
         "weight": 2,
         "hits": 0,
         "returns": 0

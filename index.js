@@ -1,17 +1,15 @@
 /*!
  * TestFlite
- * Copyright(c) 2016 Pavlović Dž Filip
+ * Copyright(c) 2018 Arielle Baldwynn
  * MIT Licensed
  */
 
 'use strict'
 
-var path = require('path');
-var fs = require('fs');
-var initRoutes = require('./router');
-var stats = require('./stats');
+const setupAdmin = require('./lib/router');
+const stats = require('./lib/stats');
 
 module.exports = {
 	stats: stats, 
-	initRoutes: initRoutes
+	setupAdmin: setupAdmin
 };

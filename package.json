@@ -1,6 +1,6 @@
 {
   "name": "testflite",
-  "version": "1.0.1",
+  "version": "2.0.1",
   "description": "Easy AB testing with NodeJS",
   "main": "index.js",
   "scripts": {
@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/whitef0x0/testflite#readme",
   "dependencies": {
+    "mongodb": "^3.1.10",
     "underscore": "^1.8.3",
     "underscore-db": "^0.10.0"
   }
