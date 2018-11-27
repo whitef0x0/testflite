@@ -3,6 +3,8 @@
 module.exports = {
   useMongoDB: true,
 
+  useExternalRiotJS: false,
+
   mongodb: {
     // TODO Change (or review) the url to your MongoDB:
     url: "your_db",

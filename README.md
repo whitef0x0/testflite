@@ -48,6 +48,9 @@ module.exports = {
   //Set this to true to use MongoDB. If it is set to false all config settings in 'config.mongodb will be ignore'
   useMongoDB: true,
 
+  //Set this to false if you are using RiotJS in your project
+  useExternalRiotJS: false,
+
   mongodb: {
     // TODO Change (or review) the url to your MongoDB:
     url: "your_db",
