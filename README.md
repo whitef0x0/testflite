@@ -40,9 +40,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 testflite.setupAdmin(app, your_custom_auth_middleware);
 ```
 
-4. Create your config file in your app directory
+4. Create a configuration file named `testflite.config.js` file in your app directory
 ```
-// In this file you can configure migrate-mongo
+// In this file you can configure testflite
 
 module.exports = {
   //Set this to true to use MongoDB. If it is set to false all config settings in 'config.mongodb will be ignore'
